@@ -23,6 +23,14 @@ public enum TokenName {
     PERCENTEQUAL,     // Операция %=
     DOUBLESTAREQUAL,  // Операция **=
 
+    TILDE,           // Операция ~
+    AMPER,           // Операция &
+    AMPEREQUAL,      // Операция &=
+    VBAR,            // Операция |
+    VBAREQUAL,       // Операция |=
+    CIRCUMFLEX,      // Операция ^
+    CIRCUMFLEXEQUAL, // Операция ^=
+
     LEFTSHIFT,       // Операция <<
     RIGHTSHIFT,      // Операция >>
     LEFTSHIFTEQUAL,  // Операция <<=
@@ -35,31 +43,25 @@ public enum TokenName {
     EQUAL,        // Оператор ==
     NOTEQUAL,     // Оператор !=
 
-    DOT,    // Оператор .
-    COMMA,  // Оператор ,
-    LPAR,   // Скобка (
-    RPAR,   // Скобка )
-    LSQB,   // Фигурная скобка {
-    RSQB,   // Фигурная скобка }
-    LBRACE, // Квадратная скобка [
-    RBRACE, // Квадратная скобка ]
+    DOT,       // Оператор .
+    COMMA,     // Оператор ,
+    LPAR,      // Скобка (
+    RPAR,      // Скобка )
+    LSQB,      // Фигурная скобка {
+    RSQB,      // Фигурная скобка }
+    LBRACE,    // Квадратная скобка [
+    RBRACE,    // Квадратная скобка ]
+    BACKQUOTE, // Кавычка "
 
-    NUMBER,     // Чисельный тип
-    STRING,     // Строчный тип
+    NAME,   // Индетификатор
+    NUMBER, // Чисельный тип
+    STRING, // Строчный тип
 
+    // Ваще хз что это
     ENDMARKER,  //
-    NAME,       //
     COLON,      //
     SEMI,       //
-    VBAR,       //
-    AMPER,      //
-    BACKQUOTE,  //
     EQEQUAL,    //
-    TILDE,        //
-    CIRCUMFLEX,   //
-    AMPEREQUAL,   //
-    VBAREQUAL,    //
-    CIRCUMFLEXEQUAL,  //
     AT,               //
     OP,               //
     ERRORTOKEN,       //

@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3b723a70-3149-43ad-aa39-24a10a967c6e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TokenName.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TokenName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TokenName.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -38,8 +37,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/TokenName.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1015">
-              <caret line="62" column="24" lean-forward="true" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="24" />
+            <state relative-caret-position="1003">
+              <caret line="59" column="22" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
               <folding>
                 <element signature="e#0#1376#0" expanded="true" />
               </folding>
@@ -146,7 +145,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554225779888" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554227642515" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
@@ -204,7 +203,7 @@
       <workItem from="1554067220212" duration="2327000" />
       <workItem from="1554107904730" duration="205000" />
       <workItem from="1554108602090" duration="849000" />
-      <workItem from="1554204290144" duration="3649000" />
+      <workItem from="1554204290144" duration="5362000" />
     </task>
     <servers />
   </component>
@@ -214,7 +213,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7113000" />
+    <option name="totallyTimeSpent" value="8826000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -301,8 +300,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/TokenName.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1015">
-          <caret line="62" column="24" lean-forward="true" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="24" />
+        <state relative-caret-position="1003">
+          <caret line="59" column="22" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
           <folding>
             <element signature="e#0#1376#0" expanded="true" />
           </folding>
