@@ -64,7 +64,6 @@ class Lexer {
                 case 25: NextHexDigit(c); break;
                 case 26: FractionDigit(c); break;
                 case 27: ExponentSymbol(c); break;
-                case 28: Long(c); break;
                 case 29: SignSymbol(c); break;
                 case 30: ExponentDigit(c); break;
                 case 31: ImaginaryLong(c); break;
@@ -210,7 +209,80 @@ class Lexer {
 
     }          // 14
     private void WaitingEqual2(char input) {
+        if (input == '=') {
+            buffer1 += input;
+            tokenList.add(new Token(TokenName.OP, buffer1));
+            buffer1 = "";
+            state = 1;
+        }
 
+        else if (input == '\"') {
+            tokenList.add(new Token(TokenName.OP, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 32;
+        } else if (input == '\'') {
+            tokenList.add(new Token(TokenName.OP, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 36;
+        } else if (input == 'R' || input == 'r') {
+            tokenList.add(new Token(TokenName.OP, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 41;
+        } else if (input == 'U' || input == 'u' || input == 'B' || input == 'b') {
+            tokenList.add(new Token(TokenName.OP, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 40;
+        } else if (input == '.') {
+            tokenList.add(new Token(TokenName.OP, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 16;
+        } else if ('1' <= input && input <= '9') {
+            tokenList.add(new Token(TokenName.OP, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 18;
+        } else if (input == '0') {
+            tokenList.add(new Token(TokenName.OP, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 19;
+        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') ) {
+            tokenList.add(new Token(TokenName.OP, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 42;
+        } else if (input == '\n') {
+            tokenList.add(new Token(TokenName.OP, buffer1));
+            tokenList.add(new Token(TokenName.NEWLINE, ""));
+            buffer1 = "";
+            buffer1 += input;
+            state = 0;
+        } else if (input == ' ') {
+            tokenList.add(new Token(TokenName.OP, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 1;
+        } else if (input == '#') {
+            tokenList.add(new Token(TokenName.OP, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 2;
+        } else if (input == '\\') {
+            tokenList.add(new Token(TokenName.OP, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 3;
+        } else if (input == EOF) {
+            tokenList.add(new Token(TokenName.ENDMARKER, ""));
+        } else {
+            System.out.println("ERROR 15");
+            state = -1;
+        }
     }  // 15
 
     private void DotIsFirst(char input) {
