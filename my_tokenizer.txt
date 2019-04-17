@@ -1,0 +1,2 @@
+// Для проверки лексера
+python -m tokenize D:\2.Programming\LexerPython\input1.py

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3b723a70-3149-43ad-aa39-24a10a967c6e" name="Default Changelist" comment="" />
+    <list default="true" id="edaafbc4-02de-43da-8a4c-85abc7b83edb" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -11,6 +11,25 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
+    <option name="isMigrated" value="true" />
+  </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -19,30 +38,148 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Lexer.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Token.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="26" column="34" selection-start-line="26" selection-start-column="34" selection-end-line="26" selection-end-column="34" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#Lexer#0;class#Lexer#0" />
-                <element signature="method#SaveResult#0;class#Lexer#0" />
-              </folding>
+            <state relative-caret-position="102">
+              <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/TokenName.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Lexer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="12" column="18" lean-forward="true" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+              <folding>
+                <element signature="e#423#701#0" />
+                <element signature="e#706#880#0" />
+                <element signature="e#885#5202#0" />
+                <element signature="e#5207#5647#0" />
+                <element signature="e#5653#5764#0" />
+                <element signature="e#5769#5885#0" />
+                <element signature="e#5890#6381#0" />
+                <element signature="e#6386#6431#0" />
+                <element signature="e#6436#6481#0" />
+                <element signature="e#6486#6531#0" />
+                <element signature="e#6537#6582#0" />
+                <element signature="e#6587#6632#0" />
+                <element signature="e#6637#6682#0" />
+                <element signature="e#6687#6732#0" />
+                <element signature="e#6737#6783#0" />
+                <element signature="e#6788#6834#0" />
+                <element signature="e#6839#6885#0" />
+                <element signature="e#6890#6936#0" />
+                <element signature="e#6941#6987#0" />
+                <element signature="e#6992#7038#0" />
+                <element signature="e#7044#8862#0" />
+                <element signature="e#10315#13584#0" />
+                <element signature="e#7146#7192#0" />
+                <element signature="e#7197#7243#0" />
+                <element signature="e#7248#7294#0" />
+                <element signature="e#7299#7345#0" />
+                <element signature="e#7350#7396#0" />
+                <element signature="e#7401#7447#0" />
+                <element signature="e#7452#7498#0" />
+                <element signature="e#7503#7549#0" />
+                <element signature="e#7554#7600#0" />
+                <element signature="e#7605#7651#0" />
+                <element signature="e#7656#7702#0" />
+                <element signature="e#7707#7753#0" />
+                <element signature="e#7758#7804#0" />
+                <element signature="e#7809#7855#0" />
+                <element signature="e#7861#8258#0" />
+                <element signature="e#8263#11947#0" />
+                <element signature="e#11952#12165#0" />
+                <element signature="e#12170#12383#0" />
+                <element signature="e#12389#12786#0" />
+                <element signature="e#12791#16476#0" />
+                <element signature="e#16481#16694#0" />
+                <element signature="e#16699#16912#0" />
+                <element signature="e#16918#19592#0" />
+                <element signature="e#19597#22157#0" />
+                <element signature="e#22163#24532#0" />
+                <element signature="e#24539#25010#0" />
+                <element signature="e#25016#25414#0" />
+                <element signature="e#25419#25654#0" />
+                <element signature="e#25659#25984#0" />
+                <element signature="e#25990#26387#0" />
+                <element signature="e#26392#26717#0" />
+                <element signature="e#26723#27194#0" />
+                <element signature="e#27200#27573#0" />
+                <element signature="e#27578#27813#0" />
+                <element signature="e#27818#28143#0" />
+                <element signature="e#28149#28522#0" />
+                <element signature="e#28527#28852#0" />
+                <element signature="e#28859#31128#0" />
+                <element signature="e#31133#31556#0" />
+                <element signature="e#31562#31754#0" />
+                <element signature="e#31760#34384#0" />
+                <element signature="e#34389#34569#0" />
+                <element signature="e#34574#34754#0" />
+                <element signature="e#34759#34939#0" />
+                <element signature="e#34944#35124#0" />
+                <element signature="e#35129#35337#0" />
+                <element signature="e#35343#35628#0" />
+                <element signature="e#35633#35918#0" />
+                <element signature="e#35923#36208#0" />
+                <element signature="e#36213#36498#0" />
+                <element signature="e#36503#36788#0" />
+                <element signature="e#36793#37078#0" />
+                <element signature="e#37083#37368#0" />
+                <element signature="e#37373#37746#0" />
+                <element signature="e#37752#38037#0" />
+                <element signature="e#38042#38327#0" />
+                <element signature="e#38332#38617#0" />
+                <element signature="e#38622#38995#0" />
+                <element signature="e#39001#39286#0" />
+                <element signature="e#39291#39576#0" />
+                <element signature="e#39581#39954#0" />
+                <element signature="e#39960#40194#0" />
+                <element signature="e#40199#40433#0" />
+                <element signature="e#40438#40759#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/my_tokenizer.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="57" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/LexerTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="22" column="1" lean-forward="true" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+            <state relative-caret-position="306">
+              <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#TestLexer#0;class#LexerTest#0" />
-                <element signature="e#419#420#0" expanded="true" />
-                <element signature="e#457#458#0" expanded="true" />
+                <element signature="e#442#443#0" expanded="true" />
+                <element signature="e#480#481#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/input1.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
             </state>
           </provider>
         </entry>
@@ -52,67 +189,65 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
-        <option value="Python Script" />
+        <option value="JUnit4 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>token</find>
+      <find>ENDMARKER</find>
+      <find>EOF</find>
+      <find>'A</find>
+    </findStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/input1.py" />
+        <option value="$PROJECT_DIR$/my_tokenizer.txt" />
+        <option value="$PROJECT_DIR$/src/main/java/Token.java" />
+        <option value="$PROJECT_DIR$/src/main/java/TokenName.java" />
         <option value="$PROJECT_DIR$/src/test/java/LexerTest.java" />
+        <option value="$PROJECT_DIR$/input1.py" />
         <option value="$PROJECT_DIR$/src/main/java/Lexer.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="y" value="-10" />
-    <option name="width" value="1940" />
-    <option name="height" value="1050" />
-  </component>
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="1" id="Add" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="-8" />
+    <option name="width" value="1937" />
+    <option name="height" value="1038" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="PythonLexer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PythonLexer" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="LexerPython" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LexerPython" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
-              <item name="PythonLexer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PythonLexer" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="LexerPython" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LexerPython" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="PythonLexer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PythonLexer" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="PythonLexer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PythonLexer" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="LexerPython" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LexerPython" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="PythonLexer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PythonLexer" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="LexerPython" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LexerPython" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
@@ -120,7 +255,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -130,12 +264,14 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554067648946" />
-    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
+    <property name="go.import.settings.migrated" value="true" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -157,19 +293,59 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="LexerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PythonLexer.PythonLexer.test" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="LexerTest" />
-      <option name="TEST_OBJECT" value="class" />
+  <component name="RunManager" selected="Gradle.LexerTest">
+    <configuration name="Govno" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Govno" />
+      <module name="LexerPython.test" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="LexerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;LexerTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="LexerTest.parse1" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;LexerTest.parse1&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.LexerTest" />
+        <item itemvalue="Gradle.LexerTest" />
+        <item itemvalue="Application.Govno" />
+        <item itemvalue="Gradle.LexerTest.parse1" />
       </list>
     </recent_temporary>
   </component>
@@ -178,39 +354,99 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="3b723a70-3149-43ad-aa39-24a10a967c6e" name="Default Changelist" comment="" />
-      <created>1554067105534</created>
+      <changelist id="edaafbc4-02de-43da-8a4c-85abc7b83edb" name="Default Changelist" comment="" />
+      <created>1554320355708</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1554067105534</updated>
-      <workItem from="1554067109950" duration="83000" />
-      <workItem from="1554067220212" duration="426000" />
+      <updated>1554320355708</updated>
+      <workItem from="1554320357111" duration="42000" />
+      <workItem from="1554320459140" duration="224000" />
+      <workItem from="1554321013058" duration="381000" />
+      <workItem from="1554358832488" duration="2966000" />
+      <workItem from="1554368100413" duration="680000" />
+      <workItem from="1554389334668" duration="1250000" />
+      <workItem from="1554546835843" duration="4023000" />
+      <workItem from="1554973298110" duration="80000" />
+      <workItem from="1554974308580" duration="4000" />
+      <workItem from="1555263173382" duration="2931000" />
+      <workItem from="1555266714890" duration="14000" />
+      <workItem from="1555330075392" duration="18897000" />
+      <workItem from="1555403942816" duration="16491000" />
+      <workItem from="1555488079522" duration="4898000" />
+      <workItem from="1555495934398" duration="6107000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="LexerTest - 2019.03.31 at 23h 27m 11s.xml">
-      <configuration name="LexerTest" configurationId="JUnit" />
+    <history-entry file="LexerTest - 2019.04.03 at 22h 44m 04s.xml">
+      <configuration name="LexerTest" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="LexerTest_parse1 - 2019.04.03 at 22h 44m 28s.xml">
+      <configuration name="LexerTest.parse1" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="LexerTest_parse1 - 2019.04.03 at 22h 56m 19s.xml">
+      <configuration name="LexerTest.parse1" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="LexerTest_parse1 - 2019.04.15 at 20h 24m 42s.xml">
+      <configuration name="LexerTest.parse1" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="LexerTest_parse1 - 2019.04.15 at 20h 25m 50s.xml">
+      <configuration name="LexerTest.parse1" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="LexerTest - 2019.04.17 at 12h 58m 11s.xml">
+      <configuration name="LexerTest" configurationId="GradleRunConfiguration" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="509000" />
+    <option name="totallyTimeSpent" value="58988000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-6" y="0" width="1549" height="830" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25302014" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20819342" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="UI Designer" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932885" weight="0.3286119" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32714286" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997175" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.3286119" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="11" />
+      <window_info anchor="bottom" id="Version Control" order="12" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Gradle" order="6" />
+      <window_info anchor="right" id="SciView" order="7" />
+      <window_info anchor="right" id="Database" order="8" weight="0.3295302" />
+      <window_info anchor="right" id="Palette&#9;" order="9" />
+      <window_info anchor="right" id="Theme Preview" order="10" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2922252" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3286119" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -218,7 +454,7 @@
       <window_info anchor="bottom" id="Build" order="7" weight="0.3286119" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50067115" side_tool="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
       <window_info anchor="bottom" id="Version Control" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -232,50 +468,146 @@
       <window_info anchor="right" id="Database" order="8" />
       <window_info anchor="right" id="Palette&#9;" order="9" />
       <window_info anchor="right" id="Theme Preview" order="10" />
-    </layout>
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Token.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        <state relative-caret-position="102">
+          <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/LexerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#442#443#0" expanded="true" />
+            <element signature="e#480#481#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/TokenName.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/my_tokenizer.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="57" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/input1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
+        <state relative-caret-position="85">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Lexer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="26" column="34" selection-start-line="26" selection-start-column="34" selection-end-line="26" selection-end-column="34" />
+        <state relative-caret-position="119">
+          <caret line="12" column="18" lean-forward="true" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#Lexer#0;class#Lexer#0" />
-            <element signature="method#SaveResult#0;class#Lexer#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/result.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/LexerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="22" column="1" lean-forward="true" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#TestLexer#0;class#LexerTest#0" />
-            <element signature="e#419#420#0" expanded="true" />
-            <element signature="e#457#458#0" expanded="true" />
+            <element signature="e#423#701#0" />
+            <element signature="e#706#880#0" />
+            <element signature="e#885#5202#0" />
+            <element signature="e#5207#5647#0" />
+            <element signature="e#5653#5764#0" />
+            <element signature="e#5769#5885#0" />
+            <element signature="e#5890#6381#0" />
+            <element signature="e#6386#6431#0" />
+            <element signature="e#6436#6481#0" />
+            <element signature="e#6486#6531#0" />
+            <element signature="e#6537#6582#0" />
+            <element signature="e#6587#6632#0" />
+            <element signature="e#6637#6682#0" />
+            <element signature="e#6687#6732#0" />
+            <element signature="e#6737#6783#0" />
+            <element signature="e#6788#6834#0" />
+            <element signature="e#6839#6885#0" />
+            <element signature="e#6890#6936#0" />
+            <element signature="e#6941#6987#0" />
+            <element signature="e#6992#7038#0" />
+            <element signature="e#7044#8862#0" />
+            <element signature="e#10315#13584#0" />
+            <element signature="e#7146#7192#0" />
+            <element signature="e#7197#7243#0" />
+            <element signature="e#7248#7294#0" />
+            <element signature="e#7299#7345#0" />
+            <element signature="e#7350#7396#0" />
+            <element signature="e#7401#7447#0" />
+            <element signature="e#7452#7498#0" />
+            <element signature="e#7503#7549#0" />
+            <element signature="e#7554#7600#0" />
+            <element signature="e#7605#7651#0" />
+            <element signature="e#7656#7702#0" />
+            <element signature="e#7707#7753#0" />
+            <element signature="e#7758#7804#0" />
+            <element signature="e#7809#7855#0" />
+            <element signature="e#7861#8258#0" />
+            <element signature="e#8263#11947#0" />
+            <element signature="e#11952#12165#0" />
+            <element signature="e#12170#12383#0" />
+            <element signature="e#12389#12786#0" />
+            <element signature="e#12791#16476#0" />
+            <element signature="e#16481#16694#0" />
+            <element signature="e#16699#16912#0" />
+            <element signature="e#16918#19592#0" />
+            <element signature="e#19597#22157#0" />
+            <element signature="e#22163#24532#0" />
+            <element signature="e#24539#25010#0" />
+            <element signature="e#25016#25414#0" />
+            <element signature="e#25419#25654#0" />
+            <element signature="e#25659#25984#0" />
+            <element signature="e#25990#26387#0" />
+            <element signature="e#26392#26717#0" />
+            <element signature="e#26723#27194#0" />
+            <element signature="e#27200#27573#0" />
+            <element signature="e#27578#27813#0" />
+            <element signature="e#27818#28143#0" />
+            <element signature="e#28149#28522#0" />
+            <element signature="e#28527#28852#0" />
+            <element signature="e#28859#31128#0" />
+            <element signature="e#31133#31556#0" />
+            <element signature="e#31562#31754#0" />
+            <element signature="e#31760#34384#0" />
+            <element signature="e#34389#34569#0" />
+            <element signature="e#34574#34754#0" />
+            <element signature="e#34759#34939#0" />
+            <element signature="e#34944#35124#0" />
+            <element signature="e#35129#35337#0" />
+            <element signature="e#35343#35628#0" />
+            <element signature="e#35633#35918#0" />
+            <element signature="e#35923#36208#0" />
+            <element signature="e#36213#36498#0" />
+            <element signature="e#36503#36788#0" />
+            <element signature="e#36793#37078#0" />
+            <element signature="e#37083#37368#0" />
+            <element signature="e#37373#37746#0" />
+            <element signature="e#37752#38037#0" />
+            <element signature="e#38042#38327#0" />
+            <element signature="e#38332#38617#0" />
+            <element signature="e#38622#38995#0" />
+            <element signature="e#39001#39286#0" />
+            <element signature="e#39291#39576#0" />
+            <element signature="e#39581#39954#0" />
+            <element signature="e#39960#40194#0" />
+            <element signature="e#40199#40433#0" />
+            <element signature="e#40438#40759#0" />
           </folding>
         </state>
       </provider>

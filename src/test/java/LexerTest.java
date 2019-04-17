@@ -1,8 +1,8 @@
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import java.io.IOException;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-class LexerTest {
+public class LexerTest {
 
     void TestLexer(String input) {
         try {
@@ -17,7 +17,7 @@ class LexerTest {
 
     // На каждый файл делаем свой тест
     @Test
-    void parse1() {
+    public void parse1() {
         TestLexer("input1.py");
     }
 }
