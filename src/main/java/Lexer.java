@@ -47,13 +47,10 @@ class Lexer {
                 case 6 : WaitingEqual(c); break;
                 case 7 : NeedEqual(c); break;
                 case 8 : Multiply1(c); break;
-                case 9 : Multiply2(c); break;
                 case 10: Slash1(c); break;
-                case 11: Slash2(c); break;
                 case 12: Greater1(c); break;
-                case 13: Greater2(c); break;
                 case 14: Less1(c); break;
-                case 15: Less2(c); break;
+                case 15: WaitingEqual2(c); break;
 
                 case 16: DotIsFirst(c); break;
                 case 17: DotIsNotFirst(c); break;
@@ -203,27 +200,18 @@ class Lexer {
     private void Multiply1(char input) {
 
     }      // 8
-    private void Multiply2(char input) {
-
-    }      // 9
     private void Slash1(char input) {
 
     }         // 10
-    private void Slash2(char input) {
-
-    }         // 11
     private void Greater1(char input) {
 
     }       // 12
-    private void Greater2(char input) {
-
-    }       // 13
     private void Less1(char input) {
 
     }          // 14
-    private void Less2(char input) {
+    private void WaitingEqual2(char input) {
 
-    }          // 15
+    }  // 15
 
     private void DotIsFirst(char input) {
         if ('0' <= input && input <= '9') {
@@ -390,34 +378,408 @@ class Lexer {
         }
     }  // 17
     private void DecimalNumber(char input) {
+        if (input == 'E' || input == 'e') {
+            buffer1 += input;
+            state = 27;
+        } else if (input == 'L' || input == 'l') {
+            buffer1 += input;
+            state = 28;
+        } else if (input == 'J' || input == 'j') {
+            buffer1 += input;
+            state = 31;
+        } else if ('0' <= input && input <= '9') {
+            buffer1 += input;
+        }
 
+        else if (input == '\\') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 1;
+        } else if (input == EOF) {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.ENDMARKER, ""));
+        } else if (input == '#') {
+            tokenList.add(new Token(TokenName.NAME, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 2;
+        } else if (input == ',' || input == '(' || input == ')' || input == '[' || input == ']' || input == '{' || input == '}' || input == '`' || input == ':' || input == ';' || input == '~') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.OP, "" + input));
+            buffer1 = "";
+            state = 1;
+        } else if (input == ' ') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            state = 1;
+        } else if (input == '\n') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.NEWLINE, ""));
+            buffer1 = "";
+            state = 0;
+        } else if (input == '+' || input == '-' || input == '%' || input == '&' || input == '|' || input == '^' || input == '=') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 1;
+        } else if (input == '!') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 7;
+        } else if (input == '*') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 8;
+        } else if (input == '/') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 10;
+        } else if (input == '<') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 14;
+        } else if (input == '>') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 12;
+        } else {
+            System.out.println("ERROR 18");
+            state = -1;
+        }
     }  // 18
     private void Number2x8x16x(char input) {
-
+        if (input == 'B' || input == 'b') {
+            buffer1 += input;
+            state = 20;
+        } else if (input == 'O' || input == 'o') {
+            buffer1 += input;
+            state = 21;
+        } else if (input == 'X' || input == 'x') {
+            buffer1 += input;
+            state = 22;
+        } else {
+            System.out.println("ERROR 19");
+            state = -1;
+        }
     }  // 19
     private void BinInt(char input) {
-
+        if ('0' <= input && input <= '1') {
+            buffer1 += input;
+            state = 23;
+        } else {
+            System.out.println("ERROR 20");
+            state = -1;
+        }
     }         // 20
     private void OctInt(char input) {
-
+        if ('0' <= input && input <= '7') {
+            buffer1 += input;
+            state = 24;
+        } else {
+            System.out.println("ERROR 21");
+            state = -1;
+        }
     }         // 21
     private void HexInt(char input) {
-
+        if (('0' <= input && input <= '9') || ('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z')) {
+            buffer1 += input;
+            state = 25;
+        } else {
+            System.out.println("ERROR 22");
+            state = -1;
+        }
     }         // 22
     private void NextBinDigit(char input) {
+        if ('0' <= input && input <= '1') {
+            buffer1 += input;
+        }
 
+        else if (input == '\\') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 1;
+        } else if (input == EOF) {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.ENDMARKER, ""));
+        } else if (input == '#') {
+            tokenList.add(new Token(TokenName.NAME, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 2;
+        } else if (input == ',' || input == '(' || input == ')' || input == '[' || input == ']' || input == '{' || input == '}' || input == '`' || input == ':' || input == ';' || input == '~') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.OP, "" + input));
+            buffer1 = "";
+            state = 1;
+        } else if (input == ' ') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            state = 1;
+        } else if (input == '\n') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.NEWLINE, ""));
+            buffer1 = "";
+            state = 0;
+        } else if (input == '+' || input == '-' || input == '%' || input == '&' || input == '|' || input == '^' || input == '=') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 1;
+        } else if (input == '!') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 7;
+        } else if (input == '*') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 8;
+        } else if (input == '/') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 10;
+        } else if (input == '<') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 14;
+        } else if (input == '>') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 12;
+        } else {
+            System.out.println("ERROR 23");
+            state = -1;
+        }
     }   // 23
     private void NextOctDigit(char input) {
+        if ('0' <= input && input <= '7') {
+            buffer1 += input;
+        }
 
+        else if (input == '\\') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 1;
+        } else if (input == EOF) {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.ENDMARKER, ""));
+        } else if (input == '#') {
+            tokenList.add(new Token(TokenName.NAME, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 2;
+        } else if (input == ',' || input == '(' || input == ')' || input == '[' || input == ']' || input == '{' || input == '}' || input == '`' || input == ':' || input == ';' || input == '~') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.OP, "" + input));
+            buffer1 = "";
+            state = 1;
+        } else if (input == ' ') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            state = 1;
+        } else if (input == '\n') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.NEWLINE, ""));
+            buffer1 = "";
+            state = 0;
+        } else if (input == '+' || input == '-' || input == '%' || input == '&' || input == '|' || input == '^' || input == '=') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 1;
+        } else if (input == '!') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 7;
+        } else if (input == '*') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 8;
+        } else if (input == '/') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 10;
+        } else if (input == '<') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 14;
+        } else if (input == '>') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 12;
+        } else {
+            System.out.println("ERROR 24");
+            state = -1;
+        }
     }   // 24
     private void NextHexDigit(char input) {
+        if (('0' <= input && input <= '9') || ('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z')) {
+            buffer1 += input;
+        }
 
+        else if (input == '\\') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 1;
+        } else if (input == EOF) {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.ENDMARKER, ""));
+        } else if (input == '#') {
+            tokenList.add(new Token(TokenName.NAME, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 2;
+        } else if (input == ',' || input == '(' || input == ')' || input == '[' || input == ']' || input == '{' || input == '}' || input == '`' || input == ':' || input == ';' || input == '~') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.OP, "" + input));
+            buffer1 = "";
+            state = 1;
+        } else if (input == ' ') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            state = 1;
+        } else if (input == '\n') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.NEWLINE, ""));
+            buffer1 = "";
+            state = 0;
+        } else if (input == '+' || input == '-' || input == '%' || input == '&' || input == '|' || input == '^' || input == '=') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 1;
+        } else if (input == '!') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 7;
+        } else if (input == '*') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 8;
+        } else if (input == '/') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 10;
+        } else if (input == '<') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 14;
+        } else if (input == '>') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 12;
+        } else {
+            System.out.println("ERROR 25");
+            state = -1;
+        }
     }   // 25
     private void FractionDigit(char input) {
+        if ('0' <= input && input <= '9') {
+            buffer1 += input;
+        } else if (input == 'E' || input == 'e') {
+            buffer1 += input;
+            state = 27;
+        } else if (input == 'J' || input == 'j') {
+            buffer1 += input;
+            state = 31;
+        }
 
+        else if (input == '\\') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 1;
+        } else if (input == EOF) {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.ENDMARKER, ""));
+        } else if (input == '#') {
+            tokenList.add(new Token(TokenName.NAME, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 2;
+        } else if (input == ',' || input == '(' || input == ')' || input == '[' || input == ']' || input == '{' || input == '}' || input == '`' || input == ':' || input == ';' || input == '~') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.OP, "" + input));
+            buffer1 = "";
+            state = 1;
+        } else if (input == ' ') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            state = 1;
+        } else if (input == '\n') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.NEWLINE, ""));
+            buffer1 = "";
+            state = 0;
+        } else if (input == '+' || input == '-' || input == '%' || input == '&' || input == '|' || input == '^' || input == '=') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 1;
+        } else if (input == '!') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 7;
+        } else if (input == '*') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 8;
+        } else if (input == '/') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 10;
+        } else if (input == '<') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 14;
+        } else if (input == '>') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 12;
+        } else {
+            System.out.println("ERROR 26");
+            state = -1;
+        }
     }  // 26
     private void ExponentSymbol(char input) {
-
+        if ('0' <= input && input <= '9') {
+            buffer1 += input;
+            state = 30;
+        } else if (input == '+' || input == '-') {
+            buffer1 += input;
+            state = 29;
+        } else {
+            System.out.println("ERROR 27");
+            state = -1;
+        }
     } // 27
     private void Long(char input) {
 
@@ -490,7 +852,7 @@ class Lexer {
             System.out.println("ERROR 31");
             state = -1;
         }
-    }      // 31
+    }   // 31
 
     private void DoubleQuote1(char input) {
         switch (input) {
