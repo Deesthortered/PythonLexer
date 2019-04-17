@@ -4,12 +4,15 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 class Lexer {
     String source_code;
     String result_code;
 
     static final char EOF = '$';
+    LinkedList<Integer> depth_stack = new LinkedList<>();
+    int counter = 0;
     int state = 0;
     String buffer1 = "";
     String buffer2 = "";
@@ -22,6 +25,7 @@ class Lexer {
         byte[] bytes = Files.readAllBytes(input_file.toPath());
         this.source_code = new String(bytes, StandardCharsets.UTF_8);
         this.source_code += EOF;
+        depth_stack.addFirst(0);
     }
     void SaveResult() throws IOException {
         FileWriter fileWriter = new FileWriter("result.html");
@@ -141,7 +145,7 @@ class Lexer {
             }
         }
     }
-    void goBackToStringLetterAnyQuote(String error_pos) {
+    private void goBackToStringLetterAnyQuote(String error_pos) {
         switch (quote_type) {
             case 1: state = 43; break;
             case 2: state = 44; break;
@@ -155,17 +159,17 @@ class Lexer {
         }
     }
 
-    void StartState_EmptyString(char input) {
+    private void StartState_EmptyString(char input) {
         switch (input) {
             default:
         }
     }    // 0
-    void StartState_NotEmptyString(char input) { // 1
+    private void StartState_NotEmptyString(char input) { // 1
         switch (input) {
             default:
         }
     } // 1
-    void Comment(char input) { // 2
+    private void Comment(char input) { // 2
         switch (input) {
             case '\n':
                 tokenList.add(new Token(TokenName.COMMENT, buffer1));
@@ -180,48 +184,48 @@ class Lexer {
                 buffer1 += input;
         }
     }     // 2
-    void ExtendString1(char input) {
+    private void ExtendString1(char input) {
 
     }  // 3
-    void ExtendString2(char input) {
+    private void ExtendString2(char input) {
 
     }  // 4
-    void NestingDepth(char input) {
+    private void NestingDepth(char input) {
 
     }   // 5
 
-    void WaitingEqual(char input) {
+    private void WaitingEqual(char input) {
 
     }   // 6
-    void NeedEqual(char input) {
+    private void NeedEqual(char input) {
 
     }      // 7
-    void Multiply1(char input) {
+    private void Multiply1(char input) {
 
     }      // 8
-    void Multiply2(char input) {
+    private void Multiply2(char input) {
 
     }      // 9
-    void Slash1(char input) {
+    private void Slash1(char input) {
 
     }         // 10
-    void Slash2(char input) {
+    private void Slash2(char input) {
 
     }         // 11
-    void Greater1(char input) {
+    private void Greater1(char input) {
 
     }       // 12
-    void Greater2(char input) {
+    private void Greater2(char input) {
 
     }       // 13
-    void Less1(char input) {
+    private void Less1(char input) {
 
     }          // 14
-    void Less2(char input) {
+    private void Less2(char input) {
 
     }          // 15
 
-    void DotIsFirst(char input) {
+    private void DotIsFirst(char input) {
         if ('0' <= input && input <= '9') {
             buffer1 += input;
             state = 26;
@@ -303,7 +307,7 @@ class Lexer {
             state = -1;
         }
     }  // 16
-    void DotIsNotFirst(char input) {
+    private void DotIsNotFirst(char input) {
         if ('0' <= input && input <= '9') {
             buffer1 += input;
             state = 26;
@@ -385,50 +389,110 @@ class Lexer {
             state = -1;
         }
     }  // 17
-    void DecimalNumber(char input) {
+    private void DecimalNumber(char input) {
 
     }  // 18
-    void Number2x8x16x(char input) {
+    private void Number2x8x16x(char input) {
 
     }  // 19
-    void BinInt(char input) {
+    private void BinInt(char input) {
 
     }         // 20
-    void OctInt(char input) {
+    private void OctInt(char input) {
 
     }         // 21
-    void HexInt(char input) {
+    private void HexInt(char input) {
 
     }         // 22
-    void NextBinDigit(char input) {
+    private void NextBinDigit(char input) {
 
     }   // 23
-    void NextOctDigit(char input) {
+    private void NextOctDigit(char input) {
 
     }   // 24
-    void NextHexDigit(char input) {
+    private void NextHexDigit(char input) {
 
     }   // 25
-    void FractionDigit(char input) {
+    private void FractionDigit(char input) {
 
     }  // 26
-    void ExponentSymbol(char input) {
+    private void ExponentSymbol(char input) {
 
     } // 27
-    void Long(char input) {
+    private void Long(char input) {
 
     }           // 28
-    void SignSymbol(char input) {
+    private void SignSymbol(char input) {
 
     }     // 29
-    void ExponentDigit(char input){
+    private void ExponentDigit(char input){
 
     }   // 30
-    void Imaginary(char input) {
-
+    private void Imaginary(char input) {
+        if (input == '\\') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 1;
+        } else if (input == EOF) {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.ENDMARKER, ""));
+        } else if (input == '#') {
+            tokenList.add(new Token(TokenName.NAME, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 2;
+        } else if (input == ',' || input == '(' || input == ')' || input == '[' || input == ']' || input == '{' || input == '}' || input == '`' || input == ':' || input == ';' || input == '~') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.OP, "" + input));
+            buffer1 = "";
+            state = 1;
+        } else if (input == ' ') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            state = 1;
+        } else if (input == '\n') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.NEWLINE, ""));
+            buffer1 = "";
+            state = 0;
+        } else if (input == '+' || input == '-' || input == '%' || input == '&' || input == '|' || input == '^' || input == '=') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 1;
+        } else if (input == '!') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 7;
+        } else if (input == '*') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 8;
+        } else if (input == '/') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 10;
+        } else if (input == '<') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 14;
+        } else if (input == '>') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 12;
+        } else {
+            System.out.println("ERROR 31");
+            state = -1;
+        }
     }      // 31
 
-    void DoubleQuote1(char input) {
+    private void DoubleQuote1(char input) {
         switch (input) {
             case '\'':
                 buffer1 += input;
@@ -443,7 +507,7 @@ class Lexer {
                 state = -1;
         }
     }       // 32
-    void DoubleQuote2(char input) {
+    private void DoubleQuote2(char input) {
         if (input == '\"') {
             buffer1 += input;
             state = 34;
@@ -540,7 +604,7 @@ class Lexer {
             state = -1;
         }
     }       // 33
-    void DoubleQuote3(char input) {
+    private void DoubleQuote3(char input) {
         if (input == '\"') {
             buffer1 += input;
             state = 51;
@@ -549,7 +613,7 @@ class Lexer {
             state = 50;
         }
     }       // 34
-    void MultiQuoteTwoOne(char input) {
+    private void MultiQuoteTwoOne(char input) {
         if (input == '\'') {
             buffer1 += input;
             state = 54;
@@ -559,7 +623,7 @@ class Lexer {
         }
     }   // 35
 
-    void OneQuote1(char input) {
+    private void OneQuote1(char input) {
         switch (input) {
             case '\'':
                 buffer1 += input;
@@ -574,7 +638,7 @@ class Lexer {
                 state = -1;
         }
     }          // 36
-    void OneQuote2(char input) {
+    private void OneQuote2(char input) {
         if (input == '\'') {
             buffer1 += input;
             state = 38;
@@ -671,7 +735,7 @@ class Lexer {
             state = -1;
         }
     }          // 37
-    void OneQuote3(char input) {
+    private void OneQuote3(char input) {
         if (input == '\'') {
             buffer1 += input;
             state = 45;
@@ -680,7 +744,7 @@ class Lexer {
             state = 44;
         }
     }          // 38
-    void MultiQuoteOneTwo(char input) {
+    private void MultiQuoteOneTwo(char input) {
         if (input == '\"') {
             buffer1 += input;
             state = 48;
@@ -690,7 +754,7 @@ class Lexer {
         }
     }   // 39
 
-    void FirstPrefixLetter(char input) {
+    private void FirstPrefixLetter(char input) {
         if (input == 'R' || input == 'r') {
             buffer1 += input;
             state = 41;
@@ -736,7 +800,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NAME, buffer1));
             tokenList.add(new Token(TokenName.OP, "" + input));
             buffer1 = "";
-            state = 16;
+            state = 1;
         } else if (input == ' ') {
             tokenList.add(new Token(TokenName.NAME, buffer1));
             buffer1 = "";
@@ -764,7 +828,7 @@ class Lexer {
             state = -1;
         }
     }  // 40
-    void SecondPrefixLetter(char input) {
+    private void SecondPrefixLetter(char input) {
         if ( ('0' <= input && input <= '9') || ('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') ) {
             buffer1 += input;
             state = 42;
@@ -836,7 +900,7 @@ class Lexer {
         }
     } // 41
 
-    void IdentifierReading(char input) {
+    private void IdentifierReading(char input) {
         if (input == ',' || input == '(' || input == ')' || input == '[' || input == ']' || input == '{' || input == '}' || input == '`' || input == ':' || input == ';' || input == '~') {
             tokenList.add(new Token(TokenName.NAME, buffer1));
             tokenList.add(new Token(TokenName.OP, "" + input));
@@ -912,7 +976,7 @@ class Lexer {
     }  // 42
 
 
-    void StringLetterQuoteOne(char input) {
+    private void StringLetterQuoteOne(char input) {
         quote_type = 1;
         switch (input) {
             case '\\':
@@ -930,7 +994,7 @@ class Lexer {
         }
     }       // 43 & 1
 
-    void StringLetterQuoteOneOneOne(char input) {
+    private void StringLetterQuoteOneOneOne(char input) {
         quote_type = 2;
         quote_type = 6;
         switch (input) {
@@ -947,7 +1011,7 @@ class Lexer {
         }
 
     } // 44 & 2
-    void FinishStringOneOneOne1(char input){
+    private void FinishStringOneOneOne1(char input){
         if (input == '\'') {
             buffer1 += input;
             state = 46;
@@ -956,7 +1020,7 @@ class Lexer {
             state = -1;
         }
     }      // 45
-    void FinishStringOneOneOne2(char input){
+    private void FinishStringOneOneOne2(char input){
         if (input == '\'') {
             buffer1 += input;
             tokenList.add(new Token(TokenName.STRING, buffer1));
@@ -968,7 +1032,7 @@ class Lexer {
         }
     }      // 46
 
-    void StringLetterQuoteOneTwo(char input) {
+    private void StringLetterQuoteOneTwo(char input) {
         quote_type = 3;
         quote_type = 6;
         switch (input) {
@@ -984,7 +1048,7 @@ class Lexer {
             }
         }
     }    // 47 & 3
-    void FinishStringOneTwo(char input) {
+    private void FinishStringOneTwo(char input) {
         if (input == '\'') {
             buffer1 += input;
             tokenList.add(new Token(TokenName.STRING, buffer1));
@@ -996,7 +1060,7 @@ class Lexer {
         }
     }         // 48
 
-    void StringLetterQuoteTwo(char input) {
+    private void StringLetterQuoteTwo(char input) {
         quote_type = 4;
         switch (input) {
             case '\\':
@@ -1014,7 +1078,7 @@ class Lexer {
         }
     }       // 49 & 4
 
-    void StringLetterQuoteTwoTwoTwo(char input) {
+    private void StringLetterQuoteTwoTwoTwo(char input) {
         quote_type = 5;
         switch (input) {
             case '\\':
@@ -1029,7 +1093,7 @@ class Lexer {
             }
         }
     } // 50 & 5
-    void FinishStringTwoTwoTwo1(char input) {
+    private void FinishStringTwoTwoTwo1(char input) {
         if (input == '\"') {
             buffer1 += input;
             state = 52;
@@ -1038,7 +1102,7 @@ class Lexer {
             state = -1;
         }
     }     // 51
-    void FinishStringTwoTwoTwo2(char input) {
+    private void FinishStringTwoTwoTwo2(char input) {
         if (input == '\"') {
             buffer1 += input;
             tokenList.add(new Token(TokenName.STRING, buffer1));
@@ -1050,7 +1114,7 @@ class Lexer {
         }
     }     // 52
 
-    void StringLetterQuoteTwoOne(char input) {
+    private void StringLetterQuoteTwoOne(char input) {
         quote_type = 6;
         switch (input) {
             case '\\':
@@ -1065,7 +1129,7 @@ class Lexer {
             }
         }
     }    // 53 & 6
-    void FinishStringTwoOne(char input) {
+    private void FinishStringTwoOne(char input) {
         if (input == '\"') {
             buffer1 += input;
             tokenList.add(new Token(TokenName.STRING, buffer1));
@@ -1078,7 +1142,7 @@ class Lexer {
     }         // 54
 
 
-    void EscapeSequence(char input) {
+    private void EscapeSequence(char input) {
         switch (input) {
             case 'U':
                 buffer2 = "";
@@ -1149,7 +1213,7 @@ class Lexer {
                 }
         }
     } // 55
-    void Reading(char input) {
+    private void Reading(char input) {
         if (input == '}') {
             boolean is_exist = true; // Let it be
             buffer1 += '۞'; // just for example
@@ -1164,7 +1228,7 @@ class Lexer {
         }
     }        // 56
 
-    void UnicodeName(char input) {
+    private void UnicodeName(char input) {
         if (input == '{') {
             state = 56;
         } else {
@@ -1173,7 +1237,7 @@ class Lexer {
         }
     }    // 57
 
-    void N1(char input) {
+    private void N1(char input) {
         if (input == '\\') {
             buffer1 += '\n';
             state = 55;
@@ -1253,7 +1317,7 @@ class Lexer {
             }
         }
     } // 58
-    void E1(char input) {
+    private void E1(char input) {
         if (input == 'w') {
             state = 60;
         } else {
@@ -1261,7 +1325,7 @@ class Lexer {
             state = -1;
         }
     } // 59
-    void W(char input) {
+    private void W(char input) {
         if (input == 'l') {
             state = 61;
         } else {
@@ -1269,7 +1333,7 @@ class Lexer {
             state = -1;
         }
     }  // 60
-    void L(char input) {
+    private void L(char input) {
         if (input == 'i') {
             state = 62;
         } else {
@@ -1277,7 +1341,7 @@ class Lexer {
             state = -1;
         }
     }  // 61
-    void I(char input) {
+    private void I(char input) {
         if (input == 'n') {
             state = 63;
         } else {
@@ -1285,7 +1349,7 @@ class Lexer {
             state = -1;
         }
     }  // 62
-    void N2(char input) {
+    private void N2(char input) {
         if (input == 'e') {
             goBackToStringLetterAnyQuote("63 1");
         } else {
@@ -1294,7 +1358,7 @@ class Lexer {
         }
     } // 63
 
-    void _32_bitHex1(char input){
+    private void _32_bitHex1(char input){
         if ( ('0' <= input && input <= '9') || (('A' <= input && input <= 'F')) || (('a' <= input && input <= 'f'))) {
             buffer2 += input;
             state = 65;
@@ -1302,7 +1366,7 @@ class Lexer {
             System.out.println("ERROR 64");
         }
     } // 64
-    void _32_bitHex2(char input){
+    private void _32_bitHex2(char input){
         if ( ('0' <= input && input <= '9') || (('A' <= input && input <= 'F')) || (('a' <= input && input <= 'f'))) {
             buffer2 += input;
             state = 66;
@@ -1310,7 +1374,7 @@ class Lexer {
             System.out.println("ERROR 65");
         }
     } // 65
-    void _32_bitHex3(char input){
+    private void _32_bitHex3(char input){
         if ( ('0' <= input && input <= '9') || (('A' <= input && input <= 'F')) || (('a' <= input && input <= 'f'))) {
             buffer2 += input;
             state = 67;
@@ -1318,7 +1382,7 @@ class Lexer {
             System.out.println("ERROR 66");
         }
     } // 66
-    void _32_bitHex4(char input){
+    private void _32_bitHex4(char input){
         if ( ('0' <= input && input <= '9') || (('A' <= input && input <= 'F')) || (('a' <= input && input <= 'f'))) {
             buffer2 += input;
             state = 68;
@@ -1326,7 +1390,7 @@ class Lexer {
             System.out.println("ERROR 67");
         }
     } // 67
-    void _32_bitHex5(char input){
+    private void _32_bitHex5(char input){
         if ( ('0' <= input && input <= '9') || (('A' <= input && input <= 'F')) || (('a' <= input && input <= 'f'))) {
             buffer2 += input;
             state = 69;
@@ -1334,7 +1398,7 @@ class Lexer {
             System.out.println("ERROR 68");
         }
     } // 68
-    void _32_bitHex6(char input){
+    private void _32_bitHex6(char input){
         if ( ('0' <= input && input <= '9') || (('A' <= input && input <= 'F')) || (('a' <= input && input <= 'f'))) {
             buffer2 += input;
             state = 70;
@@ -1342,7 +1406,7 @@ class Lexer {
             System.out.println("ERROR 69");
         }
     } // 69
-    void _32_bitHex7(char input){
+    private void _32_bitHex7(char input){
         if ( ('0' <= input && input <= '9') || (('A' <= input && input <= 'F')) || (('a' <= input && input <= 'f'))) {
             buffer2 += input;
             state = 71;
@@ -1350,7 +1414,7 @@ class Lexer {
             System.out.println("ERROR 70");
         }
     } // 70
-    void _32_bitHex8(char input){
+    private void _32_bitHex8(char input){
         if ( ('0' <= input && input <= '9') || (('A' <= input && input <= 'F')) || (('a' <= input && input <= 'f'))) {
             buffer2 += input;
             buffer1 += (char)Integer.parseInt(buffer2, 16);
@@ -1360,7 +1424,7 @@ class Lexer {
         }
     } // 71
 
-    void _16_bitHex1(char input){
+    private void _16_bitHex1(char input){
         if ( ('0' <= input && input <= '9') || (('A' <= input && input <= 'F')) || (('a' <= input && input <= 'f'))) {
             buffer2 += input;
             state = 73;
@@ -1368,7 +1432,7 @@ class Lexer {
             System.out.println("ERROR 72");
         }
     } // 72
-    void _16_bitHex2(char input){
+    private void _16_bitHex2(char input){
         if ( ('0' <= input && input <= '9') || (('A' <= input && input <= 'F')) || (('a' <= input && input <= 'f'))) {
             buffer2 += input;
             state = 74;
@@ -1376,7 +1440,7 @@ class Lexer {
             System.out.println("ERROR 73");
         }
     } // 73
-    void _16_bitHex3(char input){
+    private void _16_bitHex3(char input){
         if ( ('0' <= input && input <= '9') || (('A' <= input && input <= 'F')) || (('a' <= input && input <= 'f'))) {
             buffer2 += input;
             state = 75;
@@ -1384,7 +1448,7 @@ class Lexer {
             System.out.println("ERROR 74");
         }
     } // 74
-    void _16_bitHex4(char input){
+    private void _16_bitHex4(char input){
         if ( ('0' <= input && input <= '9') || (('A' <= input && input <= 'F')) || (('a' <= input && input <= 'f'))) {
             buffer2 += input;
             buffer1 += (char)Integer.parseInt(buffer2, 16);
@@ -1394,7 +1458,7 @@ class Lexer {
         }
     } // 75
 
-    void HexValue1(char input) {
+    private void HexValue1(char input) {
         if ( ('0' <= input && input <= '9') || (('A' <= input && input <= 'F')) || (('a' <= input && input <= 'f'))) {
             buffer2 += input;
             state = 77;
@@ -1402,7 +1466,7 @@ class Lexer {
             System.out.println("ERROR 76");
         }
     }  // 76
-    void HexValue2(char input) {
+    private void HexValue2(char input) {
         if ( ('0' <= input && input <= '9') || (('A' <= input && input <= 'F')) || (('a' <= input && input <= 'f'))) {
             buffer2 += input;
             state = 78;
@@ -1410,7 +1474,7 @@ class Lexer {
             System.out.println("ERROR 77");
         }
     }  // 77
-    void HexValue3(char input) {
+    private void HexValue3(char input) {
         if ( ('0' <= input && input <= '9') || (('A' <= input && input <= 'F')) || (('a' <= input && input <= 'f'))) {
             buffer2 += input;
             buffer1 += (char)Integer.parseInt(buffer2, 16);
@@ -1420,7 +1484,7 @@ class Lexer {
         }
     }  // 78
 
-    void OctValue1(char input) {
+    private void OctValue1(char input) {
         if ('0' <= input && input <= '7') {
             buffer2 += input;
             state = 80;
@@ -1429,7 +1493,7 @@ class Lexer {
             state = -1;
         }
     }  // 79
-    void OctValue2(char input) {
+    private void OctValue2(char input) {
         if ('0' <= input && input <= '7') {
             buffer2 += input;
             state = 81;
@@ -1438,7 +1502,7 @@ class Lexer {
             state = -1;
         }
     }  // 80
-    void OctValue3(char input) {
+    private void OctValue3(char input) {
         if ('0' <= input && input <= '7') {
             buffer2 += input;
             buffer1 += (char)Integer.parseInt(buffer2, 8);
