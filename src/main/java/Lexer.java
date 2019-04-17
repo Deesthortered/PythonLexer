@@ -156,6 +156,7 @@ class Lexer {
     }
 
     private void StartState_EmptyString(char input) {
+        counter = 0;
         switch (input) {
             default:
         }
@@ -181,10 +182,24 @@ class Lexer {
         }
     }     // 2
     private void ExtendString1(char input) {
-
+        if (input == EOF) {
+            tokenList.add(new Token(TokenName.ENDMARKER, ""));
+        } else if (input == '\n') {
+            state = 1;
+        } else {
+            System.out.println("ERROR 3");
+            state = -1;
+        }
     }  // 3
     private void ExtendString2(char input) {
-
+        if (input == EOF) {
+            tokenList.add(new Token(TokenName.ENDMARKER, ""));
+        } else if (input == '\n') {
+            state = 0;
+        } else {
+            System.out.println("ERROR 4");
+            state = -1;
+        }
     }  // 4
     private void NestingDepth(char input) {
 
