@@ -1,2 +1,3 @@
 // Для проверки лексера
 python -m tokenize D:\2.Programming\Lexer\input1.py
+python -m tokenize D:\2.Programming\Lexer\input2.py

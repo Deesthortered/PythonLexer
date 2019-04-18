@@ -145,8 +145,10 @@ class Lexer {
                     return;
             }
         }
-        if (depth_stack.getFirst() != 0)
+        while (depth_stack.getFirst() != 0) {
             tokenList.add(new Token(TokenName.DEDENT, ""));
+            depth_stack.pollFirst();
+        }
         tokenList.add(new Token(TokenName.ENDMARKER, ""));
     }
     private void goBackToStringLetterAnyQuote(String error_pos) {
