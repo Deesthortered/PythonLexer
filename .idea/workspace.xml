@@ -60,8 +60,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Lexer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="193" column="43" selection-start-line="193" selection-start-column="43" selection-end-line="193" selection-end-column="43" />
+            <state relative-caret-position="1290">
+              <caret line="1851" column="47" selection-start-line="1851" selection-start-column="47" selection-end-line="1851" selection-end-column="47" />
               <folding>
                 <element signature="e#423#701#0" />
                 <element signature="e#706#880#0" />
@@ -71,7 +71,6 @@
                 <element signature="e#5890#6381#0" />
                 <element signature="e#6396#6595#0" />
                 <element signature="e#6718#7014#0" />
-                <element signature="e#6486#6531#0" />
                 <element signature="e#6571#9387#0" />
                 <element signature="e#6629#6732#0" />
                 <element signature="e#6687#9504#0" />
@@ -197,6 +196,7 @@
       <find>EOF</find>
       <find>'A</find>
       <find>'('</find>
+      <find>'+'</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -375,7 +375,7 @@
       <workItem from="1555403942816" duration="16491000" />
       <workItem from="1555488079522" duration="4898000" />
       <workItem from="1555495934398" duration="6107000" />
-      <workItem from="1555539353851" duration="5718000" />
+      <workItem from="1555539353851" duration="7398000" />
     </task>
     <servers />
   </component>
@@ -400,7 +400,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64706000" />
+    <option name="totallyTimeSpent" value="66386000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -480,7 +480,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Lexer.java</url>
-          <line>2278</line>
+          <line>2326</line>
           <properties />
           <option name="timeStamp" value="7" />
         </line-breakpoint>
@@ -531,8 +531,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Lexer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="193" column="43" selection-start-line="193" selection-start-column="43" selection-end-line="193" selection-end-column="43" />
+        <state relative-caret-position="1290">
+          <caret line="1851" column="47" selection-start-line="1851" selection-start-column="47" selection-end-line="1851" selection-end-column="47" />
           <folding>
             <element signature="e#423#701#0" />
             <element signature="e#706#880#0" />
@@ -542,7 +542,6 @@
             <element signature="e#5890#6381#0" />
             <element signature="e#6396#6595#0" />
             <element signature="e#6718#7014#0" />
-            <element signature="e#6486#6531#0" />
             <element signature="e#6571#9387#0" />
             <element signature="e#6629#6732#0" />
             <element signature="e#6687#9504#0" />
