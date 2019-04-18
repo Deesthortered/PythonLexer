@@ -1,8 +1,6 @@
 
 public enum TokenName {
     // Перечислены все токены.
-    // Источник: https://docs.python.org/2/library/token.html
-    // Описание: https://www.asmeurer.com/brown-water-python/tokens.html
 
     NL,         // Токен новой физической строки
     NEWLINE,    // Токен новой логической строки

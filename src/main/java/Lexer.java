@@ -20,17 +20,30 @@ class Lexer {
 
     private ArrayList<Token> tokenList = new ArrayList<>();
 
-    Lexer(String source_code_file) throws IOException {
+    Lexer(String source_code_file){
         File input_file = new File(source_code_file);
-        byte[] bytes = Files.readAllBytes(input_file.toPath());
+        byte[] bytes = new byte[0];
+        try {
+            bytes = Files.readAllBytes(input_file.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.source_code = new String(bytes, StandardCharsets.UTF_8);
         this.source_code += EOF;
         depth_stack.addFirst(0);
     }
-    void SaveResult() throws IOException {
-        FileWriter fileWriter = new FileWriter("result.html");
-        fileWriter.write(result_code);
-        fileWriter.close();
+    void SaveResult(){
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter("result.html");
+            fileWriter.write(result_code);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (Token token : tokenList) {
+            System.out.println(token);
+        }
     }
     void Parse() {
         for (int i = 0; i < source_code.length(); i++) {
