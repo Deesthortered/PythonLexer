@@ -9,6 +9,6 @@ class Token {
 
     @Override
     public String toString() {
-        return "< " + name + " | " + value + " >";
+        return "< " + name + " \t| " + value + " >";
     }
 }

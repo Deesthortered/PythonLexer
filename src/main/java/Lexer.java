@@ -1097,7 +1097,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
             buffer1 += input;
-            state = 1;
+            state = 6;
         } else if (input == '!') {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
@@ -1171,7 +1171,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
             buffer1 += input;
-            state = 1;
+            state = 6;
         } else if (input == '!') {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
@@ -1265,7 +1265,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
             buffer1 += input;
-            state = 1;
+            state = 6;
         } else if (input == '!') {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
@@ -1332,7 +1332,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
             buffer1 += input;
-            state = 1;
+            state = 6;
         } else if (input == '!') {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
@@ -1399,7 +1399,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
             buffer1 += input;
-            state = 1;
+            state = 6;
         } else if (input == '!') {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
@@ -1472,7 +1472,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
             buffer1 += input;
-            state = 1;
+            state = 6;
         } else if (input == '!') {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
@@ -1560,7 +1560,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
             buffer1 += input;
-            state = 1;
+            state = 6;
         } else if (input == '!') {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
@@ -1623,7 +1623,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
             buffer1 += input;
-            state = 1;
+            state = 6;
         } else if (input == '!') {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
@@ -1930,7 +1930,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NAME, buffer1));
             buffer1 = "";
             buffer1 += input;
-            state = 1;
+            state = 6;
         } else if (input == '!') {
             tokenList.add(new Token(TokenName.NAME, buffer1));
             buffer1 = "";
@@ -2001,7 +2001,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NAME, buffer1));
             buffer1 = "";
             buffer1 += input;
-            state = 1;
+            state = 6;
         } else if (input == '!') {
             tokenList.add(new Token(TokenName.NAME, buffer1));
             buffer1 = "";
@@ -2088,7 +2088,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NAME, buffer1));
             buffer1 = "";
             buffer1 += input;
-            state = 1;
+            state = 6;
         } else if (input == '!') {
             tokenList.add(new Token(TokenName.NAME, buffer1));
             buffer1 = "";

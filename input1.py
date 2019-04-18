@@ -1,8 +1,8 @@
 
-'234'.ur"a hui tebe"
+'234'.ur"a h tebe"
 sdf'13'
 
-""" Hui blyat""".'suka'
+""" h bl""".'ska'
 ,.#<;
 
 # comment1
