@@ -296,6 +296,7 @@ class Lexer {
     } // 1
     private void Comment(char input) { // 2
         switch (input) {
+            case '\r':
             case '\n':
                 tokenList.add(new Token(TokenName.COMMENT, buffer1));
                 buffer1 = "";
@@ -1137,6 +1138,65 @@ class Lexer {
         } else if (input == 'X' || input == 'x') {
             buffer1 += input;
             state = 22;
+        }
+
+        else if (input == '\\') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 1;
+        } else if (input == EOF) {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.ENDMARKER, ""));
+        } else if (input == '#') {
+            tokenList.add(new Token(TokenName.NAME, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 2;
+        } else if (input == ',' || input == '(' || input == ')' || input == '[' || input == ']' || input == '{' || input == '}' || input == '`' || input == ':' || input == ';' || input == '~') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.OP, "" + input));
+            buffer1 = "";
+            state = 1;
+        } else if (input == ' ') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            state = 1;
+        } else if (input == '\n' || input == '\r') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            tokenList.add(new Token(TokenName.NEWLINE, ""));
+            buffer1 = "";
+            state = 0;
+        } else if (input == '+' || input == '-' || input == '%' || input == '&' || input == '|' || input == '^' || input == '=') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 1;
+        } else if (input == '!') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 7;
+        } else if (input == '*') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 8;
+        } else if (input == '/') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 10;
+        } else if (input == '<') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 14;
+        } else if (input == '>') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 12;
         } else {
             System.out.println("ERROR 19");
             state = -1;
@@ -2060,14 +2120,14 @@ class Lexer {
             buffer1 += input;
             state = 16;
         } else if (input == '\"') {
-            buffer1 += input;
             tokenList.add(new Token(TokenName.NAME, buffer1));
             buffer1 = "";
+            buffer1 += input;
             state = 32;
         } else if (input == '\'') {
-            buffer1 += input;
             tokenList.add(new Token(TokenName.NAME, buffer1));
             buffer1 = "";
+            buffer1 += input;
             state = 36;
         } else if (input == '#') {
             tokenList.add(new Token(TokenName.NAME, buffer1));
