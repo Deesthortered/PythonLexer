@@ -9,7 +9,7 @@ public enum TokenName {
     ENDMARKER,  // Токен конца исходного кода
     ERRORTOKEN, // Нераспознаный токен (если считаный токен нераспознан - он становится ERRORTOKEN)
 
-    NAME,    // Индетификатор
+    NAME,
     NUMBER,  // Чисельный тип
     STRING,  // Строчный тип
     COMMENT, // Комментарий

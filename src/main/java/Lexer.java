@@ -33,14 +33,6 @@ class Lexer {
         depth_stack.addFirst(0);
     }
     void SaveResult(){
-        FileWriter fileWriter = null;
-        try {
-            fileWriter = new FileWriter("result.html");
-            fileWriter.write(result_code);
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         for (Token token : tokenList) {
             System.out.println(token);
         }
@@ -174,7 +166,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.ENDMARKER, ""));
         } else if (input == ' ') {
             // nothing
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.NL, ""));
             state = 0;
         } else if (input == '#') {
@@ -241,7 +233,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.ENDMARKER, ""));
         } else if (input == ' ') {
             // nothing
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             state = 0;
         } else if (input == '#') {
@@ -320,7 +312,7 @@ class Lexer {
     private void ExtendString1(char input) {
         if (input == EOF) {
             tokenList.add(new Token(TokenName.ENDMARKER, ""));
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             state = 1;
         } else {
             System.out.println("ERROR 3");
@@ -330,7 +322,7 @@ class Lexer {
     private void ExtendString2(char input) {
         if (input == EOF) {
             tokenList.add(new Token(TokenName.ENDMARKER, ""));
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             state = 0;
         } else {
             System.out.println("ERROR 4");
@@ -346,7 +338,7 @@ class Lexer {
             state = 2;
         } else if (input == EOF) {
             tokenList.add(new Token(TokenName.ENDMARKER, ""));
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.NL, ""));
             state = 0;
         } else {
@@ -464,7 +456,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 42;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             buffer1 = "";
@@ -554,7 +546,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 42;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             buffer1 = "";
@@ -633,7 +625,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 42;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             buffer1 = "";
@@ -712,7 +704,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 42;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             buffer1 = "";
@@ -791,7 +783,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 42;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             buffer1 = "";
@@ -867,7 +859,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 42;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             buffer1 = "";
@@ -940,7 +932,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 12;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, buffer1));
             buffer1 = "";
@@ -1021,7 +1013,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 12;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, buffer1));
             buffer1 += input;
@@ -1095,7 +1087,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
             state = 1;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             buffer1 = "";
@@ -1204,7 +1196,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
             state = 1;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             buffer1 = "";
@@ -1271,7 +1263,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
             state = 1;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             buffer1 = "";
@@ -1338,7 +1330,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
             state = 1;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             buffer1 = "";
@@ -1411,7 +1403,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
             state = 1;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             buffer1 = "";
@@ -1499,7 +1491,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
             state = 1;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             buffer1 = "";
@@ -1562,7 +1554,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
             state = 1;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             buffer1 = "";
@@ -1614,8 +1606,9 @@ class Lexer {
                 state = 33;
                 break;
             default:
-                System.out.println("ERROR 32");
-                state = -1;
+                quote_type = 4;
+                buffer1 += input;
+                goBackToStringLetterAnyQuote("32");
         }
     }       // 32
     private void DoubleQuote2(char input) {
@@ -1662,7 +1655,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 1;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.STRING, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             buffer1 = "";
@@ -1745,8 +1738,9 @@ class Lexer {
                 state = 39;
                 break;
             default:
-                System.out.println("ERROR 36");
-                state = -1;
+                quote_type = 1;
+                buffer1 += input;
+                goBackToStringLetterAnyQuote("36");
         }
     }          // 36
     private void OneQuote2(char input) {
@@ -1793,7 +1787,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 1;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.STRING, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             buffer1 = "";
@@ -1922,7 +1916,7 @@ class Lexer {
         } else if (input == '\'') {
             buffer1 += input;
             state = 36;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.NAME, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             buffer1 = "";
@@ -1993,7 +1987,7 @@ class Lexer {
         } else if (input == '\'') {
             buffer1 += input;
             state = 36;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.NAME, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             buffer1 = "";
@@ -2017,7 +2011,7 @@ class Lexer {
             tokenList.add(new Token(TokenName.OP, "" + input));
             buffer1 = "";
             state = 1;
-        } else if (input == '\n') {
+        } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.NAME, buffer1));
             tokenList.add(new Token(TokenName.NEWLINE, ""));
             buffer1 = "";
@@ -2327,7 +2321,7 @@ class Lexer {
     private void Reading(char input) {
         if (input == '}') {
             boolean is_exist = true; // Let it be
-            buffer1 += '۞'; // just for example
+            buffer1 += '?'; // just for example
             if (is_exist) {
                 goBackToStringLetterAnyQuote("56 1");
             } else {
