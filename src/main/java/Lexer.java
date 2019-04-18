@@ -205,6 +205,9 @@ class Lexer {
         counter++;
         if (input == ' ') {
             // nothing
+        } else if (input == '#') {
+            buffer1 += input;
+            state = 2;
         } else if (input == EOF) {
             tokenList.add(new Token(TokenName.ENDMARKER, ""));
         } else if (input == '\n') {
@@ -225,11 +228,9 @@ class Lexer {
         }
 
         if (input == ',' || input == '(' || input == ')' || input == '[' || input == ']' || input == '{' || input == '}' || input == '`' || input == ':' || input == ';' || input == '~') {
-            tokenList.add(new Token(TokenName.OP, buffer1));
-            buffer1 = "";
             tokenList.add(new Token(TokenName.OP, "" + input));
             state = 1;
-        }else if (input == '!') {
+        } else if (input == '!') {
             buffer1 += input;
             state = 7;
         } else if (input == '*') {
@@ -243,14 +244,39 @@ class Lexer {
             state = 14;
         } else if (input == '>') {
             buffer1 += input;
-            tokenList.add(new Token(TokenName.OP, buffer1));
-            buffer1 = "";
             state = 12;
         } else if (input == '+' || input == '-' || input == '%' || input == '&' || input == '|' || input == '^' || input == '=') {
-            tokenList.add(new Token(TokenName.OP, buffer1));
-            buffer1 = "";
             buffer1 += input;
             state = 6;
+        }
+
+        else if (input == '\"') {
+            buffer1 += input;
+            state = 32;
+        } else if (input == '\'') {
+            buffer1 += input;
+            state = 36;
+        } else if (input == 'R' || input == 'r') {
+            buffer1 += input;
+            state = 41;
+        } else if (input == 'U' || input == 'u' || input == 'B' || input == 'b') {
+            buffer1 += input;
+            state = 40;
+        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z')) {
+            buffer1 += input;
+            state = 42;
+        } else if (input == '.') {
+            buffer1 += input;
+            state = 16;
+        } else if (input == '0') {
+            buffer1 += input;
+            state = 19;
+        } else if ('1' <= input && input <= '9') {
+            buffer1 += input;
+            state = 18;
+        } else {
+            System.out.println("ERROR 5");
+            state = -1;
         }
     }   // 5
 
