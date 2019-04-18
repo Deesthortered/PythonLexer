@@ -8,22 +8,16 @@ sdf'13'
 # comment1
 
 def BasicOpportunities():
-    print("Принтим что попало", "и даже больше", 1234567890) # пробелы ставятся автоматически между строк
+    print("Printim chto popalo", "i daze bolshe", 1234567890) # some comment 1
 
-    # динамическая типизация
-    # это строки
-    a = input("Введите первое значение: ") 
-    b = input("Введите второе значение: ")
+    a = input("VVedite pervoe znachenie: ")
+    b = input("Vvedite vtotoe znachenie: ")
 
-    # потому тут будет конкатенация
     print("Concat: a + b = ", a+b)
     
-    # приведение типов (и вообще поебать на типизацию)
     a = int(a)
     b = float(b)
 
-    # арифметические операции
-    # и осторожно с именами переменных - InteliSence тут слепой
     print("a+b", a+b)
     print("a-b", a-b)
     print("a*b", a*b)
@@ -32,13 +26,11 @@ def BasicOpportunities():
     print("a%b", a%b)
     print("a**b", a**b)
 
-    # сокращенно тоже можно, но ИНКРЕМЕНТОВ/ДЕКРЕМЕНТОВ НЕТ!!!
     a += 1
     print("a++", a)
 
-    # С ветвлениями все просто
-    print("А теперь разберем ветвления")
-    a = int(input("Введите число: "))
+    print("A teper razberem vetvlenia")
+    a = int(input("Vvedite chislo: "))
     if a > 0:
         print("+")
     elif a < 0:
@@ -46,27 +38,22 @@ def BasicOpportunities():
     else:
         print("0")
 
-    # С циклами есть свои приколы
-    print("А теперь циклы")
-    b = input("Введите слово: ")
-    # Таким циклом можно прогнать все элементы массива (в данном случае - строчки)
+    print("A teper cicly")
+    b = input("Vvedite slovo: ")
     for i in b:
-        print(i*3) # трижды выводим символ
+        print(i*3) # tri raza
 
-    a = int(input("А теперь введите число: "))
+    a = int(input("A teper vvedite chislo: "))
     i = 0
-    # а это обычный безусловный цикл без приколов
     while i < a and i < 10:
         print(b)
         i += 1
 
-    # Кстааати, логические операторы. Других пока не видел.
     a = True
     b = False
     if not (a < 5 and b < 3) or a == b:
         print("blabla")
 
-    # А это проверка на то, что имена указывают на один и тот же обьект. Булевые значения сравниваются по значению
     a = [1, 2, 3]
     b = [1, 2, 3]
     if a is b:
@@ -74,9 +61,6 @@ def BasicOpportunities():
     else:
         print("false")
 
-    # кажись с базой все.
-
-    # Аааах, да. Оказывается переменную можно называть так
     _ = 123
     print(_)
 
