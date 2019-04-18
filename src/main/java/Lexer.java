@@ -211,7 +211,7 @@ class Lexer {
         } else if (input == 'U' || input == 'u' || input == 'B' || input == 'b') {
             buffer1 += input;
             state = 40;
-        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z')) {
+        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             buffer1 += input;
             state = 42;
         } else if (input == '.') {
@@ -277,7 +277,7 @@ class Lexer {
         } else if (input == 'U' || input == 'u' || input == 'B' || input == 'b') {
             buffer1 += input;
             state = 40;
-        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z')) {
+        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             buffer1 += input;
             state = 42;
         } else if (input == '.') {
@@ -391,7 +391,7 @@ class Lexer {
         } else if (input == 'U' || input == 'u' || input == 'B' || input == 'b') {
             buffer1 += input;
             state = 40;
-        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z')) {
+        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             buffer1 += input;
             state = 42;
         } else if (input == '.') {
@@ -452,7 +452,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 19;
-        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') ) {
+        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             tokenList.add(new Token(TokenName.OP, buffer1));
             buffer1 = "";
             buffer1 += input;
@@ -542,7 +542,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 19;
-        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') ) {
+        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             tokenList.add(new Token(TokenName.OP, buffer1));
             buffer1 = "";
             buffer1 += input;
@@ -621,7 +621,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 19;
-        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') ) {
+        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             tokenList.add(new Token(TokenName.OP, buffer1));
             buffer1 = "";
             buffer1 += input;
@@ -700,7 +700,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 19;
-        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') ) {
+        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             tokenList.add(new Token(TokenName.OP, buffer1));
             buffer1 = "";
             buffer1 += input;
@@ -779,7 +779,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 19;
-        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') ) {
+        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             tokenList.add(new Token(TokenName.OP, buffer1));
             buffer1 = "";
             buffer1 += input;
@@ -855,7 +855,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 19;
-        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') ) {
+        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             tokenList.add(new Token(TokenName.OP, buffer1));
             buffer1 = "";
             buffer1 += input;
@@ -958,7 +958,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 40;
-        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z')) {
+        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             tokenList.add(new Token(TokenName.OP, buffer1));
             buffer1 = "";
             buffer1 += input;
@@ -1040,7 +1040,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 40;
-        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z')) {
+        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
             buffer1 += input;
@@ -1221,7 +1221,7 @@ class Lexer {
         }
     }         // 21
     private void HexInt(char input) {
-        if (('0' <= input && input <= '9') || ('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z')) {
+        if (('0' <= input && input <= '9') || ('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             buffer1 += input;
             state = 25;
         } else {
@@ -1364,7 +1364,7 @@ class Lexer {
         }
     }   // 24
     private void NextHexDigit(char input) {
-        if (('0' <= input && input <= '9') || ('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z')) {
+        if (('0' <= input && input <= '9') || ('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             buffer1 += input;
         }
 
@@ -1700,7 +1700,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 18;
-        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z')) {
+        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             tokenList.add(new Token(TokenName.STRING, buffer1));
             buffer1 = "";
             buffer1 += input;
@@ -1832,7 +1832,7 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 18;
-        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z')) {
+        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             tokenList.add(new Token(TokenName.STRING, buffer1));
             buffer1 = "";
             buffer1 += input;
@@ -1923,7 +1923,7 @@ class Lexer {
         if (input == 'R' || input == 'r') {
             buffer1 += input;
             state = 41;
-        } else if ( ('0' <= input && input <= '9') || ('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') ) {
+        } else if ( ('0' <= input && input <= '9') || ('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             buffer1 += input;
             state = 42;
         } else if (input == '+' || input == '-' || input == '%' || input == '&' || input == '|' || input == '^' || input == '=') {
@@ -1994,7 +1994,7 @@ class Lexer {
         }
     }  // 40
     private void SecondPrefixLetter(char input) {
-        if ( ('0' <= input && input <= '9') || ('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') ) {
+        if ( ('0' <= input && input <= '9') || ('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             buffer1 += input;
             state = 42;
         } else if (input == '+' || input == '-' || input == '%' || input == '&' || input == '|' || input == '^' || input == '=') {
@@ -2082,7 +2082,7 @@ class Lexer {
             state = 1;
         } else if (input == EOF) {
             tokenList.add(new Token(TokenName.ENDMARKER, ""));
-        } else if ( ('0' <= input && input <= '9') || ('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') ) {
+        } else if ( ('0' <= input && input <= '9') || ('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             buffer1 += input;
         } else if (input == '+' || input == '-' || input == '%' || input == '&' || input == '|' || input == '^' || input == '=') {
             tokenList.add(new Token(TokenName.NAME, buffer1));

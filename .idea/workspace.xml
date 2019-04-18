@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="edaafbc4-02de-43da-8a4c-85abc7b83edb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/input1.py" beforeDir="false" afterPath="$PROJECT_DIR$/input1.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Lexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -66,8 +64,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Lexer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="850">
-              <caret line="1593" column="43" selection-start-line="1593" selection-start-column="43" selection-end-line="1593" selection-end-column="43" />
+            <state relative-caret-position="1638">
+              <caret line="2525" column="40" selection-start-line="2525" selection-start-column="40" selection-end-line="2525" selection-end-column="40" />
               <folding>
                 <element signature="e#423#701#0" />
                 <element signature="e#706#880#0" />
@@ -203,6 +201,7 @@
       <find>'('</find>
       <find>'\n')</find>
       <find>'+'</find>
+      <find>'A'</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -221,7 +220,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-9" />
     <option name="width" value="1938" />
     <option name="height" value="1039" />
@@ -396,7 +395,7 @@
       <workItem from="1555403942816" duration="16491000" />
       <workItem from="1555488079522" duration="4898000" />
       <workItem from="1555495934398" duration="6107000" />
-      <workItem from="1555539353851" duration="12623000" />
+      <workItem from="1555539353851" duration="12952000" />
     </task>
     <servers />
   </component>
@@ -421,7 +420,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71611000" />
+    <option name="totallyTimeSpent" value="71940000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -560,8 +559,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Lexer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="1593" column="43" selection-start-line="1593" selection-start-column="43" selection-end-line="1593" selection-end-column="43" />
+        <state relative-caret-position="1638">
+          <caret line="2525" column="40" selection-start-line="2525" selection-start-column="40" selection-end-line="2525" selection-end-column="40" />
           <folding>
             <element signature="e#423#701#0" />
             <element signature="e#706#880#0" />
