@@ -19,6 +19,9 @@ class Lexer {
 
     private ArrayList<Token> tokenList = new ArrayList<>();
 
+    private ArrayList<String> htmlTokens = new ArrayList<>();
+    private String htmlBuffer = "";
+
     Lexer(String source_code_file){
         File input_file = new File(source_code_file);
         byte[] bytes = new byte[0];
@@ -35,10 +38,29 @@ class Lexer {
         for (Token token : tokenList) {
             System.out.println(token);
         }
+        String html_begin = "" +
+                "<html lang=\"en\">\n" +
+                "<head>\n" +
+                "    <meta charset=\"UTF-8\">\n" +
+                "\n" +
+                "    <title>*Lexer Python 2.7.16 </title>\n" +
+                "\n" +
+                "</head>\n" +
+                "<body>";
+        String html_end = "</body>\n" +
+                "</html>" +
+                "";
+
+        String body = "";
+
+        for (int i = 0; i < htmlTokens.size(); i++) {
+
+        }
     }
     void Parse() {
         for (int i = 0; i < source_code.length(); i++) {
             char c = source_code.charAt(i);
+            htmlBuffer += c;
             switch (state) {
 
                 case 0 : StartState_EmptyString(c); break;
@@ -147,9 +169,16 @@ class Lexer {
         }
         while (depth_stack.getFirst() != 0) {
             tokenList.add(new Token(TokenName.DEDENT, ""));
+            makeHtmlToken();
             depth_stack.pollFirst();
         }
         tokenList.add(new Token(TokenName.ENDMARKER, ""));
+        makeHtmlToken();
+    }
+
+    private void makeHtmlToken() {
+        htmlTokens.add(htmlBuffer);
+        htmlBuffer = "";
     }
     private void goBackToStringLetterAnyQuote(String error_pos) {
         switch (quote_type) {
@@ -164,25 +193,63 @@ class Lexer {
                 state = -1;
         }
     }
+    private void checkDepth() {
+        int prev_depth = depth_stack.getFirst();
+        if (prev_depth < counter) {
+            tokenList.add(new Token(TokenName.INDENT, ""));
+            makeHtmlToken();
+            depth_stack.addFirst(counter);
+        } else if (prev_depth > counter) {
+            LinkedList<Integer> temp = new LinkedList<>();
+            boolean found = false;
+            while (depth_stack.getFirst() != 0 && !found) {
+                temp.addFirst(depth_stack.getFirst());
+                depth_stack.pollFirst();
+                if (depth_stack.getFirst() == counter) {
+                    found = true;
+                }
+            }
+            if (found) {
+                while (!temp.isEmpty()) {
+                    temp.pollFirst();
+                    tokenList.add(new Token(TokenName.DEDENT, ""));
+                }
+            } else {
+                while (!temp.isEmpty()) {
+                    depth_stack.addFirst(temp.getFirst());
+                    temp.pollFirst();
+                }
+                tokenList.add(new Token(TokenName.ERRORTOKEN, ""));
+            }
+        }
+    }
 
     private void StartState_EmptyString(char input) {
         counter = 0;
         if (input == EOF) {
-
+            return;
         } else if (input == ' ') {
             state = 5;
+            return;
         } else if (input == '\n' || input == '\r') {
-            tokenList.add(new Token(TokenName.NL, ""));
+            tokenList.add(new Token(TokenName.NL, "\\n"));
+            makeHtmlToken();
             state = 0;
+            return;
         } else if (input == '#') {
             buffer1 += input;
             state = 9;
+            return;
         } else if (input == '\\') {
             state = 4;
+            return;
         }
 
-        else if (input == ',' || input == '(' || input == ')' || input == '[' || input == ']' || input == '{' || input == '}' || input == '`' || input == ':' || input == ';' || input == '~') {
+        checkDepth();
+
+        if (input == ',' || input == '(' || input == ')' || input == '[' || input == ']' || input == '{' || input == '}' || input == '`' || input == ':' || input == ';' || input == '~') {
             tokenList.add(new Token(TokenName.OP, "" + input));
+            makeHtmlToken();
             state = 1;
         } else if (input == '!') {
             buffer1 += input;
@@ -239,7 +306,8 @@ class Lexer {
         } else if (input == ' ') {
             // nothing
         } else if (input == '\n' || input == '\r') {
-            tokenList.add(new Token(TokenName.NEWLINE, ""));
+            tokenList.add(new Token(TokenName.NEWLINE, "\\n"));
+            makeHtmlToken();
             state = 0;
         } else if (input == '#') {
             buffer1 += input;
@@ -250,6 +318,7 @@ class Lexer {
 
         else if (input == ',' || input == '(' || input == ')' || input == '[' || input == ']' || input == '{' || input == '}' || input == '`' || input == ':' || input == ';' || input == '~') {
             tokenList.add(new Token(TokenName.OP, "" + input));
+            makeHtmlToken();
         } else if (input == '!') {
             buffer1 += input;
             state = 7;
@@ -304,12 +373,15 @@ class Lexer {
             case '\r':
             case '\n':
                 tokenList.add(new Token(TokenName.COMMENT, buffer1));
-                tokenList.add(new Token(TokenName.NEWLINE, ""));
+                makeHtmlToken();
+                tokenList.add(new Token(TokenName.NEWLINE, "\\n"));
+                makeHtmlToken();
                 buffer1 = "";
                 state = 0;
                 break;
             case EOF:
                 tokenList.add(new Token(TokenName.COMMENT, buffer1));
+                makeHtmlToken();
                 break;
             default:
                 buffer1 += input;
@@ -320,11 +392,13 @@ class Lexer {
             case '\r':
             case '\n':
                 tokenList.add(new Token(TokenName.COMMENT, buffer1));
+                makeHtmlToken();
                 buffer1 = "";
                 state = 0;
                 break;
             case EOF:
                 tokenList.add(new Token(TokenName.COMMENT, buffer1));
+                makeHtmlToken();
                 break;
             default:
                 buffer1 += input;
@@ -359,24 +433,17 @@ class Lexer {
             state = 9;
         } else if (input == EOF) {
             tokenList.add(new Token(TokenName.DEDENT, ""));
+            makeHtmlToken();
         } else if (input == '\n' || input == '\r') {
-            tokenList.add(new Token(TokenName.NL, ""));
+            tokenList.add(new Token(TokenName.NL, "\\n"));
+            makeHtmlToken();
             state = 0;
         } else {
-            int prev_depth = depth_stack.getFirst();
-            if (prev_depth < counter) {
-                tokenList.add(new Token(TokenName.INDENT, ""));
-                depth_stack.addFirst(counter);
-            } else if (prev_depth > counter) {
-                depth_stack.pollFirst();
-                if (depth_stack.getFirst() == counter)
-                    tokenList.add(new Token(TokenName.DEDENT, ""));
-                else
-                    tokenList.add(new Token(TokenName.ERRORTOKEN, ""));
-            }
+            checkDepth();
 
             if (input == ',' || input == '(' || input == ')' || input == '[' || input == ']' || input == '{' || input == '}' || input == '`' || input == ':' || input == ';' || input == '~') {
                 tokenList.add(new Token(TokenName.OP, "" + input));
+                makeHtmlToken();
                 state = 1;
             } else if (input == '!') {
                 buffer1 += input;
@@ -433,73 +500,88 @@ class Lexer {
         if (input == '=') {
             buffer1 += input;
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             state = 1;
         }
 
         else if (input == '\"') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 32;
         } else if (input == '\'') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 36;
         } else if (input == 'R' || input == 'r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 41;
         } else if (input == 'U' || input == 'u' || input == 'B' || input == 'b') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 40;
         } else if (input == '.') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 16;
         } else if ('1' <= input && input <= '9') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 18;
         } else if (input == '0') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 19;
         } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 42;
         } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
-            tokenList.add(new Token(TokenName.NEWLINE, ""));
+            makeHtmlToken();
+            tokenList.add(new Token(TokenName.NEWLINE, "\\n"));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 0;
         } else if (input == ' ') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 1;
         } else if (input == '#') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 2;
         } else if (input == '\\') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 3;
         } else if (input == EOF) {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
         } else {
             System.out.println("ERROR 6");
             state = -1;
@@ -509,6 +591,7 @@ class Lexer {
         if (input == '=') {
             buffer1 += input;
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             state = 1;
         } else {
@@ -520,6 +603,7 @@ class Lexer {
         if (input == '=') {
             buffer1 += input;
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             state = 1;
         } else if (input == '*') {
@@ -529,67 +613,81 @@ class Lexer {
 
         else if (input == '\"') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 32;
         } else if (input == '\'') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 36;
         } else if (input == 'R' || input == 'r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 41;
         } else if (input == 'U' || input == 'u' || input == 'B' || input == 'b') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 40;
         } else if (input == '.') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 16;
         } else if ('1' <= input && input <= '9') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 18;
         } else if (input == '0') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 19;
         } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 42;
         } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
-            tokenList.add(new Token(TokenName.NEWLINE, ""));
+            makeHtmlToken();
+            tokenList.add(new Token(TokenName.NEWLINE, "\\n"));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 0;
         } else if (input == ' ') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 1;
         } else if (input == '#') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 2;
         } else if (input == '\\') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 3;
         } else if (input == EOF) {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
         } else {
             System.out.println("ERROR 8");
             state = -1;
@@ -599,6 +697,7 @@ class Lexer {
         if (input == '=') {
             buffer1 += input;
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             state = 1;
         } else if (input == '/') {
@@ -608,67 +707,81 @@ class Lexer {
 
         else if (input == '\"') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 32;
         } else if (input == '\'') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 36;
         } else if (input == 'R' || input == 'r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 41;
         } else if (input == 'U' || input == 'u' || input == 'B' || input == 'b') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 40;
         } else if (input == '.') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 16;
         } else if ('1' <= input && input <= '9') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 18;
         } else if (input == '0') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 19;
         } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 42;
         } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             tokenList.add(new Token(TokenName.NEWLINE, ""));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 0;
         } else if (input == ' ') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 1;
         } else if (input == '#') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 2;
         } else if (input == '\\') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 3;
         } else if (input == EOF) {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
         } else {
             System.out.println("ERROR 10");
             state = -1;
@@ -678,6 +791,7 @@ class Lexer {
         if (input == '=') {
             buffer1 += input;
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             state = 1;
         } else if (input == '>') {
@@ -687,67 +801,81 @@ class Lexer {
 
         else if (input == '\"') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 32;
         } else if (input == '\'') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 36;
         } else if (input == 'R' || input == 'r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 41;
         } else if (input == 'U' || input == 'u' || input == 'B' || input == 'b') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 40;
         } else if (input == '.') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 16;
         } else if ('1' <= input && input <= '9') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 18;
         } else if (input == '0') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 19;
         } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 42;
         } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
-            tokenList.add(new Token(TokenName.NEWLINE, ""));
+            makeHtmlToken();
+            tokenList.add(new Token(TokenName.NEWLINE, "\\n"));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 0;
         } else if (input == ' ') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 1;
         } else if (input == '#') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 2;
         } else if (input == '\\') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 3;
         } else if (input == EOF) {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
         } else {
             System.out.println("ERROR 12");
             state = -1;
@@ -757,6 +885,7 @@ class Lexer {
         if (input == '=' || input == '>') {
             buffer1 += input;
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             state = 1;
         } else if (input == '<') {
@@ -766,31 +895,37 @@ class Lexer {
 
         else if (input == '\"') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 32;
         } else if (input == '\'') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 36;
         } else if (input == 'R' || input == 'r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 41;
         } else if (input == 'U' || input == 'u' || input == 'B' || input == 'b') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 40;
         } else if (input == '.') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 16;
         } else if ('1' <= input && input <= '9') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 18;
@@ -801,32 +936,39 @@ class Lexer {
             state = 19;
         } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 42;
         } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
-            tokenList.add(new Token(TokenName.NEWLINE, ""));
+            makeHtmlToken();
+            tokenList.add(new Token(TokenName.NEWLINE, "\\n"));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 0;
         } else if (input == ' ') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 1;
         } else if (input == '#') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 2;
         } else if (input == '\\') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 3;
         } else if (input == EOF) {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
         } else {
             System.out.println("ERROR 14");
             state = -1;
@@ -836,73 +978,88 @@ class Lexer {
         if (input == '=') {
             buffer1 += input;
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             state = 1;
         }
 
         else if (input == '\"') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 32;
         } else if (input == '\'') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 36;
         } else if (input == 'R' || input == 'r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 41;
         } else if (input == 'U' || input == 'u' || input == 'B' || input == 'b') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 40;
         } else if (input == '.') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 16;
         } else if ('1' <= input && input <= '9') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 18;
         } else if (input == '0') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 19;
         } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 42;
         } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
-            tokenList.add(new Token(TokenName.NEWLINE, ""));
+            makeHtmlToken();
+            tokenList.add(new Token(TokenName.NEWLINE, "\\n"));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 0;
         } else if (input == ' ') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 1;
         } else if (input == '#') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 2;
         } else if (input == '\\') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 3;
         } else if (input == EOF) {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
         } else {
             System.out.println("ERROR 15");
             state = -1;
@@ -915,76 +1072,93 @@ class Lexer {
             state = 26;
         } else if (input == '\"') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 32;
         } else if (input == '\'') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 36;
         } else if (input == '#') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 2;
         } else if (input == '!') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 7;
         } else if (input == '*') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 8;
         } else if (input == '/') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 10;
         } else if (input == '<') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 14;
         } else if (input == '>') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 12;
         } else if (input == '\n' || input == '\r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
-            tokenList.add(new Token(TokenName.NEWLINE, buffer1));
+            makeHtmlToken();
             buffer1 = "";
-            state = 12;
+            tokenList.add(new Token(TokenName.NEWLINE, "\\n"));
+            makeHtmlToken();
+            state = 0;
         }else if (input == ',' || input == '(' || input == ')' || input == '[' || input == ']' || input == '{' || input == '}' || input == '`' || input == ':' || input == ';' || input == '~') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             tokenList.add(new Token(TokenName.OP, "" + input));
+            makeHtmlToken();
             state = 1;
         } else if (input == '+' || input == '-' || input == '%' || input == '&' || input == '|' || input == '^' || input == '=') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 6;
         } else if (input == 'R' || input == 'r') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 41;
         } else if (input == 'U' || input == 'u' || input == 'B' || input == 'b') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 40;
         } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
             buffer1 = "";
             buffer1 += input;
             state = 42;
         } else if (input == EOF) {
             tokenList.add(new Token(TokenName.OP, buffer1));
+            makeHtmlToken();
         } else {
             System.out.println("ERROR 16");
             state = -1;
@@ -1084,6 +1258,9 @@ class Lexer {
             state = 31;
         } else if ('0' <= input && input <= '9') {
             buffer1 += input;
+        } else if (input == '.') {
+            buffer1 += input;
+            state = 17;
         }
 
         else if (input == '\\') {
@@ -1159,7 +1336,10 @@ class Lexer {
             state = 22;
         }
 
-        else if (input == '\\') {
+        else if (input == '.') {
+            buffer1 += input;
+            state = 17;
+        }else if (input == '\\') {
             tokenList.add(new Token(TokenName.NUMBER, buffer1));
             buffer1 = "";
             buffer1 += input;
@@ -1454,6 +1634,11 @@ class Lexer {
         } else if (input == 'J' || input == 'j') {
             buffer1 += input;
             state = 31;
+        } else if (input == '.') {
+            tokenList.add(new Token(TokenName.NUMBER, buffer1));
+            buffer1 = "";
+            buffer1 += input;
+            state = 16;
         }
 
         else if (input == '\\') {
@@ -2193,8 +2378,8 @@ class Lexer {
             buffer1 += input;
             state = 46;
         } else {
-            System.out.println("ERROR 45");
-            state = -1;
+            buffer1 += input;
+            state = 44;
         }
     }      // 45
     private void FinishStringOneOneOne2(char input){
@@ -2204,8 +2389,8 @@ class Lexer {
             buffer1 = "";
             state = 1;
         } else {
-            System.out.println("ERROR 46");
-            state = -1;
+            buffer1 += input;
+            state = 44;
         }
     }      // 46
 
@@ -2232,8 +2417,8 @@ class Lexer {
             buffer1 = "";
             state = 1;
         } else {
-            System.out.println("ERROR 48");
-            state = -1;
+            buffer1 += input;
+            state = 47;
         }
     }         // 48
 
@@ -2275,8 +2460,8 @@ class Lexer {
             buffer1 += input;
             state = 52;
         } else {
-            System.out.println("ERROR 51");
-            state = -1;
+            buffer1 += input;
+            state = 50;
         }
     }     // 51
     private void FinishStringTwoTwoTwo2(char input) {
@@ -2286,8 +2471,8 @@ class Lexer {
             buffer1 = "";
             state = 1;
         } else {
-            System.out.println("ERROR 52");
-            state = -1;
+            buffer1 += input;
+            state = 50;
         }
     }     // 52
 
@@ -2313,8 +2498,8 @@ class Lexer {
             buffer1 = "";
             state = 1;
         } else {
-            System.out.println("ERROR 53");
-            state = -1;
+            buffer1 += input;
+            state = 53;
         }
     }         // 54
 
