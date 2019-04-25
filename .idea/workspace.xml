@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="edaafbc4-02de-43da-8a4c-85abc7b83edb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/input3.py" beforeDir="false" afterPath="$PROJECT_DIR$/input3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_tokenizer.txt" beforeDir="false" afterPath="$PROJECT_DIR$/my_tokenizer.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Lexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Program.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -54,8 +52,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Lexer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="5" column="28" lean-forward="true" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+            <state relative-caret-position="726">
+              <caret line="492" column="43" selection-start-line="492" selection-start-column="43" selection-end-line="492" selection-end-column="43" />
               <folding>
                 <element signature="e#584#999#0" />
                 <element signature="e#1004#1117#0" />
@@ -63,7 +61,7 @@
                 <element signature="e#6168#6249#0" />
                 <element signature="e#5539#5987#0" />
                 <element signature="e#6777#8016#0" />
-                <element signature="e#7914#7951#0" />
+                <element signature="e#7956#8115#0" />
                 <element signature="e#5993#8326#0" />
                 <element signature="e#8331#10630#0" />
                 <element signature="e#10635#11158#0" />
@@ -187,8 +185,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/input3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="8" column="13" lean-forward="true" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+            <state relative-caret-position="110">
+              <caret line="5" column="22" lean-forward="true" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -397,7 +395,7 @@
       <workItem from="1555752463531" duration="8000" />
       <workItem from="1556136802102" duration="2556000" />
       <workItem from="1556139477389" duration="2152000" />
-      <workItem from="1556143769463" duration="7325000" />
+      <workItem from="1556143769463" duration="7995000" />
     </task>
     <servers />
   </component>
@@ -422,7 +420,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92791000" />
+    <option name="totallyTimeSpent" value="93461000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -502,13 +500,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Lexer.java</url>
-          <line>2246</line>
+          <line>2511</line>
           <properties />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Lexer.java</url>
-          <line>1971</line>
+          <line>2236</line>
           <properties />
           <option name="timeStamp" value="14" />
         </line-breakpoint>
@@ -571,8 +569,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Lexer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="5" column="28" lean-forward="true" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+        <state relative-caret-position="726">
+          <caret line="492" column="43" selection-start-line="492" selection-start-column="43" selection-end-line="492" selection-end-column="43" />
           <folding>
             <element signature="e#584#999#0" />
             <element signature="e#1004#1117#0" />
@@ -580,7 +578,7 @@
             <element signature="e#6168#6249#0" />
             <element signature="e#5539#5987#0" />
             <element signature="e#6777#8016#0" />
-            <element signature="e#7914#7951#0" />
+            <element signature="e#7956#8115#0" />
             <element signature="e#5993#8326#0" />
             <element signature="e#8331#10630#0" />
             <element signature="e#10635#11158#0" />
@@ -666,8 +664,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/input3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" column="13" lean-forward="true" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        <state relative-caret-position="110">
+          <caret line="5" column="22" lean-forward="true" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
         </state>
       </provider>
     </entry>
