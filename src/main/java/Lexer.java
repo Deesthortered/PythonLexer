@@ -1951,6 +1951,12 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 12;
+        } else if (('A' <= input && input <= 'Z') || ('a' <= input && input <= 'z') || input == '_') {
+            tokenList.add(new Token(TokenName.ERRORTOKEN, buffer1));
+            makeHtmlToken();
+            buffer1 = "";
+            buffer1 += input;
+            state = 42;
         } else {
             System.out.println("ERROR 19");
             state = -1;
@@ -3308,7 +3314,13 @@ class Lexer {
             buffer1 = "";
             buffer1 += input;
             state = 2;
-        } else {
+        } else if (input == '\\') {
+            tokenList.add(new Token(TokenName.ERRORTOKEN, buffer1));
+            makeHtmlToken();
+            buffer1 = "";
+            buffer1 += input;
+            state = 3;
+        }  else {
             System.out.println("ERROR 42");
             state = -1;
         }
